@@ -1,0 +1,103 @@
+﻿@model RaporUygulamasi.Models.KullaniciRapor
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = null;
+}
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+    <link rel="icon" href="https://reeder.com.tr/media/favicon/default/favicon_-icon.ico" type="image/x-icon">
+    <link href="~/Style/style.css" rel="stylesheet" />
+</head>
+<body id="index">
+    <nav class="navbar navbar navbar-inverse navbar-static-top example6">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar6">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand text-hide">
+                    <img src="~/Content/img/Reeder.png" alt="logo" style=" height: 120%; width: 100px;  margin-left:50px;">
+                </a>
+            </div>
+            <div id="navbar6" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li>@Html.ActionLink("Çıkış Yap", "Login", "Login")</li>
+
+
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+        <!--/.container-fluid -->
+    </nav>
+    <div class="container ">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading"><b>Atanan Raporlar</b></div>
+                <div class="panel-body">
+                    <h3>Bunu silmek istediğinize emin misiniz ?</h3>
+                    <div>
+
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Kullanici.kullaniciAdi)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Kullanici.kullaniciAdi)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Raporlar.raporAdi)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Raporlar.raporAdi)
+                            </dd>
+
+                        </dl>
+
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Atamayı Kaldır" class="btn btn-primary btn-sm" /> 
+                           
+                                @Html.ActionLink("Atanan Raporlara Geri Dön", "Index", "kullaniciRapors", null, new { @class = "btn btn-primary btn-sm" })
+
+
+                           
+
+                           
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <footer class="page-footer font-small blue" style="position:fixed">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">
+            © 2020 Reeder
+
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+</body>

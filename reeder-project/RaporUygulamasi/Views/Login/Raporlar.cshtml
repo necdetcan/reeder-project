@@ -1,0 +1,274 @@
+﻿@model IEnumerable<RaporUygulamasi.Models.spRaporSirala_Result>
+
+@{
+    ViewBag.Title = "Raporlar";
+    Layout = null;
+}
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+    <link rel="icon" href="https://reeder.com.tr/media/favicon/default/favicon_-icon.ico" type="image/x-icon">
+    <script src=":https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
+
+
+
+
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <link rel="stylesheet" href=" https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.min.css">
+    <link href="~/Style/style.css" rel="stylesheet" />
+
+
+
+    <script>
+
+
+
+
+
+
+
+
+
+        $(document).ready(function () {
+
+
+
+            // Setup - add a text input to each footer cell
+            $('#example thead tr').clone(true).appendTo('#example thead');
+            $('#example thead tr:eq(1) th').each(function (i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="' + title + ' Ara " />');
+
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+            var table = $('#example').DataTable({
+
+            orderCellsTop: true,
+             fixedHeader: true,
+
+                "language": {
+                    "lengthMenu": "Bir sayfada _MENU_ kayıt göster",
+                    "zeroRecords": "Aradığınız kriterlere uygun sonuç bulunamadı",
+                    "info": "Sayfa _PAGE_   gösteriliyor _PAGES_ sayfadan    ",
+                    "infoEmpty": "Kayıt bulunamadı",
+                    "infoFiltered": "(Toplam _MAX_ total kayıt filtrelendi)",
+                    "paginate": {
+                        "previous": "Önceki",
+                        "next": "Sonraki"
+
+                    },
+                   
+                    "search": "Ara:"
+
+                }
+
+
+            });
+
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</head>
+<body id="index">
+
+
+
+    <nav class="navbar navbar navbar-inverse navbar-static-top example6">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar6">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand text-hide">
+                    <img src="~/Content/img/Reeder.png" alt="logo" style=" height: 120%; width: 100px;  margin-left:50px;">
+                </a>
+            </div>
+            <div id="navbar6" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li>@Html.ActionLink("Çıkış Yap", "Login", "Login")</li>
+
+
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+        <!--/.container-fluid -->
+    </nav>
+
+    <div class="container ">
+
+        @if (ViewBag.yetki == "yonetici")
+        {
+            <div class="panel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading"><b>Yönetici Paneli</b></div>
+                    <div class="panel-body">
+
+
+
+
+                        <button class="btn btn-info" value="Kullanıcı Ekle" onclick="location.href='@Url.Action("Create", "Kullanicis")'">Kullanıcı Ekle</button>
+
+                        <button class="btn btn-info" value="Kullanıcı Ekle" onclick="location.href='@Url.Action("Index", "Kullanicis")'">Kullanıcı Sil</button>
+
+                        <button class="btn btn-info" value="Rapor Ata" onclick="location.href='@Url.Action("Create", "KullaniciRapors")'">Rapor Ata</button>
+
+                        <button class="btn btn-info" value="Rapor Sil" onclick="location.href='@Url.Action("Index", "KullaniciRapors")'">Rapor Atamasını Kaldır</button>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color:black; color:white; border-color:black"><b>Raporlar</b></div>
+                <div class="panel-body">
+
+                    <br /><br />
+                         
+                    <table id="example" class="display" style="width:100%" cellspacing="0">
+                        <thead>
+                            <tr>
+
+                                <th>Rapor Adı</th>
+                                <th>Kullanıcı Adı</th>
+                                <th>Rapor Tarihi</th>
+                                <th>RaporID</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+
+                                    <td>
+
+                                        @Html.DisplayFor(ModelItem => item.raporAdi)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(ModelItem => item.kullaniciAdi)
+                                    </td>
+                                    <td>
+
+                                        @Html.DisplayFor(ModelItem => item.raporTarih)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(ModelItem => item.RaporID)
+                                    </td>
+
+                                    <td>
+                                        <button class="btn btn-info" value="Görüntüle" onclick="location.href='@Url.Action("Index", "Raporlars", new { id = item.RaporID })'">Görüntüle</button>
+
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+
+                                <th>Rapor Adı</th>
+                                <th>Kullanıcı Adı</th>
+                                <th>Rapor Tarihi</th>
+                                <th>RaporID</th>
+                                <th></th>
+
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+    <br /><br /><br /><br /><br /><br /><br /><br />
+
+    <footer class="page-footer font-small blue">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">
+            © 2020 Reeder
+
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+
+</body>
+
+
+
+

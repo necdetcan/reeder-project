@@ -1,0 +1,122 @@
+﻿@model RaporUygulamasi.Models.Servis
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Servis</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.servisNumarasi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.servisNumarasi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.seriNumarasi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.seriNumarasi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modelKodu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modelKodu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.musteriNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.musteriNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.musteriAd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.musteriAd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.musteriSoyad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.musteriSoyad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.musteriAdres)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.musteriAdres)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.musteriIl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.musteriIl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.musteriIlce)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.musteriIlce)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.serviseGelisTarih)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.serviseGelisTarih)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.kargoTarihi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kargoTarihi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Raporlar.raporID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Raporlar.raporID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

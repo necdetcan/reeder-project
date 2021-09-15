@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RaporModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Depo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="servisNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="seriNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tarih" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="model" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="modelKodu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="DepoParca">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="depoID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="parcaAd" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="parcaKod" Type="String" MaxLength="2044" FixedLength="false" Unicode="false" />
+    <Property Name="parcaDurum" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="Kullanici">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dogumTarihi" Type="DateTime" Precision="0" />
+    <Property Name="ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="yetki" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kullaniciAdi" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="KullaniciRapor" Relationship="Self.fk_Kullanici" FromRole="Kullanici" ToRole="KullaniciRapor" />
+  </EntityType>
+  <EntityType Name="KullaniciRapor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kullaniciID" Type="Int32" Nullable="false" />
+    <Property Name="RaporID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Kullanici" Relationship="Self.fk_Kullanici" FromRole="KullaniciRapor" ToRole="Kullanici" />
+    <NavigationProperty Name="Raporlar" Relationship="Self.fk_Raporlar" FromRole="KullaniciRapor" ToRole="Raporlar" />
+  </EntityType>
+  <EntityType Name="musteriHizmetleri">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="tarih" Type="DateTime" Precision="0" />
+    <Property Name="temsilci" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="musteriAd" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="musteriSoyad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="musteriTelefon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="musteriEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="musteriSikayeti" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="musteriyeCevap" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="musteriyeUlasildi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="cihazModel" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="cihazSeriNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <EntityType Name="Raporlar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="raporAdi" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="raporTarih" Type="DateTime" Precision="0" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kategori" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="KullaniciRapor" Relationship="Self.fk_Raporlar" FromRole="Raporlar" ToRole="KullaniciRapor" />
+  </EntityType>
+  <EntityType Name="Servis">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="servisNumarasi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="seriNumarasi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="model" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="modelKodu" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="musteriNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="musteriAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="musteriSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="musteriAdres" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="musteriIl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="musteriIlce" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="serviseGelisTarih" Type="DateTime" Precision="0" />
+    <Property Name="kargoTarihi" Type="DateTime" Precision="0" />
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <Association Name="fk_Kullanici">
+    <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="1" />
+    <End Role="KullaniciRapor" Type="Self.KullaniciRapor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanici">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="KullaniciRapor">
+        <PropertyRef Name="kullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Raporlar">
+    <End Role="Raporlar" Type="Self.Raporlar" Multiplicity="1" />
+    <End Role="KullaniciRapor" Type="Self.KullaniciRapor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Raporlar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="KullaniciRapor">
+        <PropertyRef Name="RaporID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RaporEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Depo" EntityType="Self.Depo" />
+    <EntitySet Name="DepoParca" EntityType="Self.DepoParca" />
+    <EntitySet Name="Kullanici" EntityType="Self.Kullanici" />
+    <EntitySet Name="KullaniciRapor" EntityType="Self.KullaniciRapor" />
+    <EntitySet Name="musteriHizmetleri" EntityType="Self.musteriHizmetleri" />
+    <EntitySet Name="Raporlar" EntityType="Self.Raporlar" />
+    <EntitySet Name="Servis" EntityType="Self.Servis" />
+    <AssociationSet Name="fk_Kullanici" Association="Self.fk_Kullanici">
+      <End Role="Kullanici" EntitySet="Kullanici" />
+      <End Role="KullaniciRapor" EntitySet="KullaniciRapor" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Raporlar" Association="Self.fk_Raporlar">
+      <End Role="Raporlar" EntitySet="Raporlar" />
+      <End Role="KullaniciRapor" EntitySet="KullaniciRapor" />
+    </AssociationSet>
+    <FunctionImport Name="spRaporSirala" ReturnType="Collection(RaporModel.spRaporSirala_Result)">
+      <Parameter Name="ID" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="spRaporSirala_Result">
+    <Property Type="Int32" Name="KullaniciID" Nullable="true" />
+    <Property Type="String" Name="kullaniciAdi" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="raporAdi" Nullable="true" MaxLength="150" />
+    <Property Type="Int32" Name="RaporID" Nullable="true" />
+    <Property Type="DateTime" Name="raporTarih" Nullable="true" />
+  </ComplexType>
+</Schema>

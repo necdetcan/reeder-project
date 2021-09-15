@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RaporModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Depo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="servisNo" Type="varchar" MaxLength="50" />
+    <Property Name="seriNo" Type="varchar" MaxLength="50" />
+    <Property Name="tarih" Type="varchar" MaxLength="50" />
+    <Property Name="model" Type="varchar" MaxLength="100" />
+    <Property Name="modelKodu" Type="varchar" MaxLength="50" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DepoParca">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="depoID" Type="varchar" MaxLength="100" />
+    <Property Name="parcaAd" Type="varchar" MaxLength="100" />
+    <Property Name="parcaKod" Type="varchar" MaxLength="2044" />
+    <Property Name="parcaDurum" Type="varchar" MaxLength="800" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kullanici">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="sifre" Type="varchar" MaxLength="50" />
+    <Property Name="dogumTarihi" Type="date" />
+    <Property Name="ad" Type="varchar" MaxLength="50" />
+    <Property Name="soyad" Type="varchar" MaxLength="50" />
+    <Property Name="yetki" Type="varchar" MaxLength="50" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kullaniciAdi" Type="nchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="KullaniciRapor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kullaniciID" Type="int" Nullable="false" />
+    <Property Name="RaporID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="musteriHizmetleri">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="tarih" Type="date" />
+    <Property Name="temsilci" Type="varchar" MaxLength="100" />
+    <Property Name="musteriAd" Type="varchar" MaxLength="100" />
+    <Property Name="musteriSoyad" Type="varchar" MaxLength="100" />
+    <Property Name="musteriTelefon" Type="varchar" MaxLength="100" />
+    <Property Name="musteriEmail" Type="varchar" MaxLength="100" />
+    <Property Name="musteriSikayeti" Type="varchar" MaxLength="500" />
+    <Property Name="musteriyeCevap" Type="varchar" MaxLength="500" />
+    <Property Name="musteriyeUlasildi" Type="varchar" MaxLength="100" />
+    <Property Name="cihazModel" Type="varchar" MaxLength="100" />
+    <Property Name="cihazSeriNo" Type="varchar" MaxLength="50" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Raporlar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="raporAdi" Type="varchar" MaxLength="150" />
+    <Property Name="raporTarih" Type="date" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kategori" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Servis">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="servisNumarasi" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="seriNumarasi" Type="varchar" MaxLength="100" />
+    <Property Name="model" Type="varchar" MaxLength="200" />
+    <Property Name="modelKodu" Type="varchar" MaxLength="200" />
+    <Property Name="musteriNo" Type="varchar" MaxLength="100" />
+    <Property Name="musteriAd" Type="varchar" MaxLength="50" />
+    <Property Name="musteriSoyad" Type="varchar" MaxLength="50" />
+    <Property Name="musteriAdres" Type="varchar" MaxLength="500" />
+    <Property Name="musteriIl" Type="varchar" MaxLength="50" />
+    <Property Name="musteriIlce" Type="varchar" MaxLength="50" />
+    <Property Name="serviseGelisTarih" Type="date" />
+    <Property Name="kargoTarihi" Type="date" />
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_Kullanici">
+    <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="1" />
+    <End Role="KullaniciRapor" Type="Self.KullaniciRapor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanici">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="KullaniciRapor">
+        <PropertyRef Name="kullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Raporlar">
+    <End Role="Raporlar" Type="Self.Raporlar" Multiplicity="1" />
+    <End Role="KullaniciRapor" Type="Self.KullaniciRapor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Raporlar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="KullaniciRapor">
+        <PropertyRef Name="RaporID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="spRaporSirala" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="RaporModelStoreContainer">
+    <EntitySet Name="Depo" EntityType="Self.Depo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DepoParca" EntityType="Self.DepoParca" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kullanici" EntityType="Self.Kullanici" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KullaniciRapor" EntityType="Self.KullaniciRapor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="musteriHizmetleri" EntityType="Self.musteriHizmetleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Raporlar" EntityType="Self.Raporlar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Servis" EntityType="Self.Servis" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_Kullanici" Association="Self.fk_Kullanici">
+      <End Role="Kullanici" EntitySet="Kullanici" />
+      <End Role="KullaniciRapor" EntitySet="KullaniciRapor" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Raporlar" Association="Self.fk_Raporlar">
+      <End Role="Raporlar" EntitySet="Raporlar" />
+      <End Role="KullaniciRapor" EntitySet="KullaniciRapor" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

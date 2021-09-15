@@ -1,0 +1,34 @@
+﻿@model RaporUygulamasi.Models.KullaniciRapor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>KullaniciRapor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Kullanici.sifre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kullanici.sifre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Raporlar.raporAdi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Raporlar.raporAdi)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

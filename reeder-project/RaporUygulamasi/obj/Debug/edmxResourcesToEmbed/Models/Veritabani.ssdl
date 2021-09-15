@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RaporModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Depo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="servisNo" Type="varchar" MaxLength="50" />
+    <Property Name="seriNo" Type="varchar" MaxLength="50" />
+    <Property Name="tarih" Type="varchar" MaxLength="50" />
+    <Property Name="model" Type="varchar" MaxLength="100" />
+    <Property Name="modelKodu" Type="varchar" MaxLength="50" />
+    <Property Name="rapor" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DepoParca">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="depoID" Type="varchar" MaxLength="100" />
+    <Property Name="parcaAd" Type="varchar" MaxLength="100" />
+    <Property Name="parcaKod" Type="varchar" MaxLength="2044" />
+    <Property Name="parcaDurum" Type="varchar" MaxLength="800" />
+    <Property Name="rapor" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kullanici">
+    <Key>
+      <PropertyRef Name="kullaniciID" />
+    </Key>
+    <Property Name="kullaniciID" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="sifre" Type="varchar" MaxLength="50" />
+    <Property Name="dogumTarihi" Type="date" />
+    <Property Name="ad" Type="varchar" MaxLength="50" />
+    <Property Name="soyad" Type="varchar" MaxLength="50" />
+    <Property Name="yetki" Type="varchar" MaxLength="50" />
+    <Property Name="kullaniciAdi" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="musteriHizmetleri">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="tarih" Type="date" />
+    <Property Name="temsilci" Type="varchar" MaxLength="100" />
+    <Property Name="musteriAd" Type="varchar" MaxLength="100" />
+    <Property Name="musteriSoyad" Type="varchar" MaxLength="100" />
+    <Property Name="musteriTelefon" Type="varchar" MaxLength="100" />
+    <Property Name="musteriEmail" Type="varchar" MaxLength="100" />
+    <Property Name="musteriSikayeti" Type="varchar" MaxLength="500" />
+    <Property Name="musteriyeCevap" Type="varchar" MaxLength="500" />
+    <Property Name="musteriyeUlasildi" Type="varchar" MaxLength="100" />
+    <Property Name="cihazModel" Type="varchar" MaxLength="100" />
+    <Property Name="cihazSeriNo" Type="varchar" MaxLength="50" />
+    <Property Name="rapor" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Raporlar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="kullanici" Type="varchar" MaxLength="100" />
+    <Property Name="raporAdi" Type="varchar" MaxLength="150" />
+    <Property Name="raporTarih" Type="date" />
+  </EntityType>
+  <EntityType Name="Servis">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="servisNumarasi" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="seriNumarasi" Type="varchar" MaxLength="100" />
+    <Property Name="model" Type="varchar" MaxLength="200" />
+    <Property Name="modelKodu" Type="varchar" MaxLength="200" />
+    <Property Name="musteriNo" Type="varchar" MaxLength="100" />
+    <Property Name="musteriAd" Type="varchar" MaxLength="50" />
+    <Property Name="musteriSoyad" Type="varchar" MaxLength="50" />
+    <Property Name="musteriAdres" Type="varchar" MaxLength="500" />
+    <Property Name="musteriIl" Type="varchar" MaxLength="50" />
+    <Property Name="musteriIlce" Type="varchar" MaxLength="50" />
+    <Property Name="serviseGelisTarih" Type="date" />
+    <Property Name="kargoTarihi" Type="date" />
+    <Property Name="rapor" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="lnk_Depo_DepoParca">
+    <End Role="Depo" Type="Self.Depo" Multiplicity="0..1" />
+    <End Role="DepoParca" Type="Self.DepoParca" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Depo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DepoParca">
+        <PropertyRef Name="depoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lnk_Kullanici_Raporlar">
+    <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="0..1" />
+    <End Role="Raporlar" Type="Self.Raporlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanici">
+        <PropertyRef Name="kullaniciID" />
+      </Principal>
+      <Dependent Role="Raporlar">
+        <PropertyRef Name="kullanici" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lnk_Raporlar_Depo">
+    <End Role="Raporlar" Type="Self.Raporlar" Multiplicity="1" />
+    <End Role="Depo" Type="Self.Depo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Raporlar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Depo">
+        <PropertyRef Name="rapor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lnk_Raporlar_DepoParca">
+    <End Role="Raporlar" Type="Self.Raporlar" Multiplicity="1" />
+    <End Role="DepoParca" Type="Self.DepoParca" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Raporlar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DepoParca">
+        <PropertyRef Name="rapor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lnk_Raporlar_musteriHizmetleri">
+    <End Role="Raporlar" Type="Self.Raporlar" Multiplicity="1" />
+    <End Role="musteriHizmetleri" Type="Self.musteriHizmetleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Raporlar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="musteriHizmetleri">
+        <PropertyRef Name="rapor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lnk_Raporlar_Servis">
+    <End Role="Raporlar" Type="Self.Raporlar" Multiplicity="1" />
+    <End Role="Servis" Type="Self.Servis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Raporlar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Servis">
+        <PropertyRef Name="rapor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RaporModelStoreContainer">
+    <EntitySet Name="Depo" EntityType="Self.Depo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DepoParca" EntityType="Self.DepoParca" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kullanici" EntityType="Self.Kullanici" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="musteriHizmetleri" EntityType="Self.musteriHizmetleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Raporlar" EntityType="Self.Raporlar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Servis" EntityType="Self.Servis" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="lnk_Depo_DepoParca" Association="Self.lnk_Depo_DepoParca">
+      <End Role="Depo" EntitySet="Depo" />
+      <End Role="DepoParca" EntitySet="DepoParca" />
+    </AssociationSet>
+    <AssociationSet Name="lnk_Kullanici_Raporlar" Association="Self.lnk_Kullanici_Raporlar">
+      <End Role="Kullanici" EntitySet="Kullanici" />
+      <End Role="Raporlar" EntitySet="Raporlar" />
+    </AssociationSet>
+    <AssociationSet Name="lnk_Raporlar_Depo" Association="Self.lnk_Raporlar_Depo">
+      <End Role="Raporlar" EntitySet="Raporlar" />
+      <End Role="Depo" EntitySet="Depo" />
+    </AssociationSet>
+    <AssociationSet Name="lnk_Raporlar_DepoParca" Association="Self.lnk_Raporlar_DepoParca">
+      <End Role="Raporlar" EntitySet="Raporlar" />
+      <End Role="DepoParca" EntitySet="DepoParca" />
+    </AssociationSet>
+    <AssociationSet Name="lnk_Raporlar_musteriHizmetleri" Association="Self.lnk_Raporlar_musteriHizmetleri">
+      <End Role="Raporlar" EntitySet="Raporlar" />
+      <End Role="musteriHizmetleri" EntitySet="musteriHizmetleri" />
+    </AssociationSet>
+    <AssociationSet Name="lnk_Raporlar_Servis" Association="Self.lnk_Raporlar_Servis">
+      <End Role="Raporlar" EntitySet="Raporlar" />
+      <End Role="Servis" EntitySet="Servis" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

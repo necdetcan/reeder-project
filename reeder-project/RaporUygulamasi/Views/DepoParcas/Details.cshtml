@@ -1,0 +1,58 @@
+﻿@model RaporUygulamasi.Models.DepoParca
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>DepoParca</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.parcaAd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.parcaAd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.parcaKod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.parcaKod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.parcaDurum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.parcaDurum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Depo.servisNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Depo.servisNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Raporlar.raporID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Raporlar.raporID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

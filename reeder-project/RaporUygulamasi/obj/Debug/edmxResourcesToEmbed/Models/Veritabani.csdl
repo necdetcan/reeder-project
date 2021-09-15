@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RaporModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Depo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="servisNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="seriNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="tarih" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="model" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="modelKodu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="rapor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="DepoParca" Relationship="Self.lnk_Depo_DepoParca" FromRole="Depo" ToRole="DepoParca" />
+    <NavigationProperty Name="Raporlar" Relationship="Self.lnk_Raporlar_Depo" FromRole="Depo" ToRole="Raporlar" />
+  </EntityType>
+  <EntityType Name="DepoParca">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="depoID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="parcaAd" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="parcaKod" Type="String" MaxLength="2044" FixedLength="false" Unicode="false" />
+    <Property Name="parcaDurum" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
+    <Property Name="rapor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Depo" Relationship="Self.lnk_Depo_DepoParca" FromRole="DepoParca" ToRole="Depo" />
+    <NavigationProperty Name="Raporlar" Relationship="Self.lnk_Raporlar_DepoParca" FromRole="DepoParca" ToRole="Raporlar" />
+  </EntityType>
+  <EntityType Name="Kullanici">
+    <Key>
+      <PropertyRef Name="kullaniciID" />
+    </Key>
+    <Property Name="kullaniciID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="dogumTarihi" Type="DateTime" Precision="0" />
+    <Property Name="ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="yetki" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Raporlar" Relationship="Self.lnk_Kullanici_Raporlar" FromRole="Kullanici" ToRole="Raporlar" />
+    <Property Name="kullaniciAdi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="musteriHizmetleri">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tarih" Type="DateTime" Precision="0" />
+    <Property Name="temsilci" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="musteriAd" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="musteriSoyad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="musteriTelefon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="musteriEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="musteriSikayeti" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="musteriyeCevap" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="musteriyeUlasildi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="cihazModel" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="cihazSeriNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="rapor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Raporlar" Relationship="Self.lnk_Raporlar_musteriHizmetleri" FromRole="musteriHizmetleri" ToRole="Raporlar" />
+  </EntityType>
+  <EntityType Name="Raporlar">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="kullanici" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Depo" Relationship="Self.lnk_Raporlar_Depo" FromRole="Raporlar" ToRole="Depo" />
+    <NavigationProperty Name="DepoParca" Relationship="Self.lnk_Raporlar_DepoParca" FromRole="Raporlar" ToRole="DepoParca" />
+    <NavigationProperty Name="Kullanici1" Relationship="Self.lnk_Kullanici_Raporlar" FromRole="Raporlar" ToRole="Kullanici" />
+    <NavigationProperty Name="musteriHizmetleri" Relationship="Self.lnk_Raporlar_musteriHizmetleri" FromRole="Raporlar" ToRole="musteriHizmetleri" />
+    <NavigationProperty Name="Servis" Relationship="Self.lnk_Raporlar_Servis" FromRole="Raporlar" ToRole="Servis" />
+    <Property Name="raporAdi" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="raporTarih" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Servis">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="servisNumarasi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="seriNumarasi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="model" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="modelKodu" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="musteriNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="musteriAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="musteriSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="musteriAdres" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="musteriIl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="musteriIlce" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="serviseGelisTarih" Type="DateTime" Precision="0" />
+    <Property Name="kargoTarihi" Type="DateTime" Precision="0" />
+    <Property Name="rapor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Raporlar" Relationship="Self.lnk_Raporlar_Servis" FromRole="Servis" ToRole="Raporlar" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="lnk_Depo_DepoParca">
+    <End Role="Depo" Type="Self.Depo" Multiplicity="0..1" />
+    <End Role="DepoParca" Type="Self.DepoParca" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Depo">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DepoParca">
+        <PropertyRef Name="depoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lnk_Raporlar_Depo">
+    <End Role="Raporlar" Type="Self.Raporlar" Multiplicity="1" />
+    <End Role="Depo" Type="Self.Depo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Raporlar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Depo">
+        <PropertyRef Name="rapor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lnk_Raporlar_DepoParca">
+    <End Role="Raporlar" Type="Self.Raporlar" Multiplicity="1" />
+    <End Role="DepoParca" Type="Self.DepoParca" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Raporlar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DepoParca">
+        <PropertyRef Name="rapor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lnk_Kullanici_Raporlar">
+    <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="0..1" />
+    <End Role="Raporlar" Type="Self.Raporlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanici">
+        <PropertyRef Name="kullaniciID" />
+      </Principal>
+      <Dependent Role="Raporlar">
+        <PropertyRef Name="kullanici" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lnk_Raporlar_musteriHizmetleri">
+    <End Role="Raporlar" Type="Self.Raporlar" Multiplicity="1" />
+    <End Role="musteriHizmetleri" Type="Self.musteriHizmetleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Raporlar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="musteriHizmetleri">
+        <PropertyRef Name="rapor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="lnk_Raporlar_Servis">
+    <End Role="Raporlar" Type="Self.Raporlar" Multiplicity="1" />
+    <End Role="Servis" Type="Self.Servis" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Raporlar">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Servis">
+        <PropertyRef Name="rapor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RaporEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Depo" EntityType="Self.Depo" />
+    <EntitySet Name="DepoParca" EntityType="Self.DepoParca" />
+    <EntitySet Name="Kullanici" EntityType="Self.Kullanici" />
+    <EntitySet Name="musteriHizmetleri" EntityType="Self.musteriHizmetleri" />
+    <EntitySet Name="Raporlar" EntityType="Self.Raporlar" />
+    <EntitySet Name="Servis" EntityType="Self.Servis" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="lnk_Depo_DepoParca" Association="Self.lnk_Depo_DepoParca">
+      <End Role="Depo" EntitySet="Depo" />
+      <End Role="DepoParca" EntitySet="DepoParca" />
+    </AssociationSet>
+    <AssociationSet Name="lnk_Raporlar_Depo" Association="Self.lnk_Raporlar_Depo">
+      <End Role="Raporlar" EntitySet="Raporlar" />
+      <End Role="Depo" EntitySet="Depo" />
+    </AssociationSet>
+    <AssociationSet Name="lnk_Raporlar_DepoParca" Association="Self.lnk_Raporlar_DepoParca">
+      <End Role="Raporlar" EntitySet="Raporlar" />
+      <End Role="DepoParca" EntitySet="DepoParca" />
+    </AssociationSet>
+    <AssociationSet Name="lnk_Kullanici_Raporlar" Association="Self.lnk_Kullanici_Raporlar">
+      <End Role="Kullanici" EntitySet="Kullanici" />
+      <End Role="Raporlar" EntitySet="Raporlar" />
+    </AssociationSet>
+    <AssociationSet Name="lnk_Raporlar_musteriHizmetleri" Association="Self.lnk_Raporlar_musteriHizmetleri">
+      <End Role="Raporlar" EntitySet="Raporlar" />
+      <End Role="musteriHizmetleri" EntitySet="musteriHizmetleri" />
+    </AssociationSet>
+    <AssociationSet Name="lnk_Raporlar_Servis" Association="Self.lnk_Raporlar_Servis">
+      <End Role="Raporlar" EntitySet="Raporlar" />
+      <End Role="Servis" EntitySet="Servis" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

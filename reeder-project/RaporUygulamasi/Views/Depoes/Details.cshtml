@@ -1,0 +1,66 @@
+﻿@model RaporUygulamasi.Models.Depo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Depo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.servisNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.servisNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.seriNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.seriNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tarih)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tarih)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.model)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.model)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.modelKodu)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.modelKodu)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Raporlar.raporID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Raporlar.raporID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

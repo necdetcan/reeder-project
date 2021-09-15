@@ -1,0 +1,64 @@
+﻿@model RaporUygulamasi.Models.DepoParca
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>DepoParca</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.parcaAd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.parcaAd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.parcaKod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.parcaKod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.parcaDurum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.parcaDurum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Depo.servisNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Depo.servisNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Raporlar.raporID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Raporlar.raporID)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

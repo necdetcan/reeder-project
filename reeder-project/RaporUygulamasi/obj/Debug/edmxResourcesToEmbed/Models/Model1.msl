@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RaporModelStoreContainer" CdmEntityContainer="RaporEntities2">
+    <EntitySetMapping Name="Depo">
+      <EntityTypeMapping TypeName="RaporModel.Depo">
+        <MappingFragment StoreEntitySet="Depo">
+          <ScalarProperty Name="servisNo" ColumnName="servisNo" />
+          <ScalarProperty Name="seriNo" ColumnName="seriNo" />
+          <ScalarProperty Name="tarih" ColumnName="tarih" />
+          <ScalarProperty Name="model" ColumnName="model" />
+          <ScalarProperty Name="modelKodu" ColumnName="modelKodu" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DepoParca">
+      <EntityTypeMapping TypeName="RaporModel.DepoParca">
+        <MappingFragment StoreEntitySet="DepoParca">
+          <ScalarProperty Name="depoID" ColumnName="depoID" />
+          <ScalarProperty Name="parcaAd" ColumnName="parcaAd" />
+          <ScalarProperty Name="parcaKod" ColumnName="parcaKod" />
+          <ScalarProperty Name="parcaDurum" ColumnName="parcaDurum" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Kullanici">
+      <EntityTypeMapping TypeName="RaporModel.Kullanici">
+        <MappingFragment StoreEntitySet="Kullanici">
+          <ScalarProperty Name="sifre" ColumnName="sifre" />
+          <ScalarProperty Name="dogumTarihi" ColumnName="dogumTarihi" />
+          <ScalarProperty Name="ad" ColumnName="ad" />
+          <ScalarProperty Name="soyad" ColumnName="soyad" />
+          <ScalarProperty Name="yetki" ColumnName="yetki" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="kullaniciAdi" ColumnName="kullaniciAdi" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KullaniciRapor">
+      <EntityTypeMapping TypeName="RaporModel.KullaniciRapor">
+        <MappingFragment StoreEntitySet="KullaniciRapor">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="kullaniciID" ColumnName="kullaniciID" />
+          <ScalarProperty Name="RaporID" ColumnName="RaporID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="musteriHizmetleri">
+      <EntityTypeMapping TypeName="RaporModel.musteriHizmetleri">
+        <MappingFragment StoreEntitySet="musteriHizmetleri">
+          <ScalarProperty Name="tarih" ColumnName="tarih" />
+          <ScalarProperty Name="temsilci" ColumnName="temsilci" />
+          <ScalarProperty Name="musteriAd" ColumnName="musteriAd" />
+          <ScalarProperty Name="musteriSoyad" ColumnName="musteriSoyad" />
+          <ScalarProperty Name="musteriTelefon" ColumnName="musteriTelefon" />
+          <ScalarProperty Name="musteriEmail" ColumnName="musteriEmail" />
+          <ScalarProperty Name="musteriSikayeti" ColumnName="musteriSikayeti" />
+          <ScalarProperty Name="musteriyeCevap" ColumnName="musteriyeCevap" />
+          <ScalarProperty Name="musteriyeUlasildi" ColumnName="musteriyeUlasildi" />
+          <ScalarProperty Name="cihazModel" ColumnName="cihazModel" />
+          <ScalarProperty Name="cihazSeriNo" ColumnName="cihazSeriNo" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Raporlar">
+      <EntityTypeMapping TypeName="RaporModel.Raporlar">
+        <MappingFragment StoreEntitySet="Raporlar">
+          <ScalarProperty Name="raporAdi" ColumnName="raporAdi" />
+          <ScalarProperty Name="raporTarih" ColumnName="raporTarih" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="kategori" ColumnName="kategori" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Servis">
+      <EntityTypeMapping TypeName="RaporModel.Servis">
+        <MappingFragment StoreEntitySet="Servis">
+          <ScalarProperty Name="servisNumarasi" ColumnName="servisNumarasi" />
+          <ScalarProperty Name="seriNumarasi" ColumnName="seriNumarasi" />
+          <ScalarProperty Name="model" ColumnName="model" />
+          <ScalarProperty Name="modelKodu" ColumnName="modelKodu" />
+          <ScalarProperty Name="musteriNo" ColumnName="musteriNo" />
+          <ScalarProperty Name="musteriAd" ColumnName="musteriAd" />
+          <ScalarProperty Name="musteriSoyad" ColumnName="musteriSoyad" />
+          <ScalarProperty Name="musteriAdres" ColumnName="musteriAdres" />
+          <ScalarProperty Name="musteriIl" ColumnName="musteriIl" />
+          <ScalarProperty Name="musteriIlce" ColumnName="musteriIlce" />
+          <ScalarProperty Name="serviseGelisTarih" ColumnName="serviseGelisTarih" />
+          <ScalarProperty Name="kargoTarihi" ColumnName="kargoTarihi" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spRaporSirala" FunctionName="RaporModel.Store.spRaporSirala">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RaporModel.spRaporSirala_Result">
+          <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+          <ScalarProperty Name="kullaniciAdi" ColumnName="kullaniciAdi" />
+          <ScalarProperty Name="raporAdi" ColumnName="raporAdi" />
+          <ScalarProperty Name="RaporID" ColumnName="RaporID" />
+          <ScalarProperty Name="raporTarih" ColumnName="raporTarih" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

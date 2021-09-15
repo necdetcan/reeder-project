@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RaporModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Depo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="servisNo" Type="varchar" MaxLength="50" />
+          <Property Name="seriNo" Type="varchar" MaxLength="50" />
+          <Property Name="tarih" Type="varchar" MaxLength="50" />
+          <Property Name="model" Type="varchar" MaxLength="100" />
+          <Property Name="modelKodu" Type="varchar" MaxLength="50" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DepoParca">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="depoID" Type="varchar" MaxLength="100" />
+          <Property Name="parcaAd" Type="varchar" MaxLength="100" />
+          <Property Name="parcaKod" Type="varchar" MaxLength="2044" />
+          <Property Name="parcaDurum" Type="varchar" MaxLength="800" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kullanici">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="sifre" Type="varchar" MaxLength="50" />
+          <Property Name="dogumTarihi" Type="date" />
+          <Property Name="ad" Type="varchar" MaxLength="50" />
+          <Property Name="soyad" Type="varchar" MaxLength="50" />
+          <Property Name="yetki" Type="varchar" MaxLength="50" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kullaniciAdi" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="KullaniciRapor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kullaniciID" Type="int" Nullable="false" />
+          <Property Name="RaporID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="musteriHizmetleri">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="tarih" Type="date" />
+          <Property Name="temsilci" Type="varchar" MaxLength="100" />
+          <Property Name="musteriAd" Type="varchar" MaxLength="100" />
+          <Property Name="musteriSoyad" Type="varchar" MaxLength="100" />
+          <Property Name="musteriTelefon" Type="varchar" MaxLength="100" />
+          <Property Name="musteriEmail" Type="varchar" MaxLength="100" />
+          <Property Name="musteriSikayeti" Type="varchar" MaxLength="500" />
+          <Property Name="musteriyeCevap" Type="varchar" MaxLength="500" />
+          <Property Name="musteriyeUlasildi" Type="varchar" MaxLength="100" />
+          <Property Name="cihazModel" Type="varchar" MaxLength="100" />
+          <Property Name="cihazSeriNo" Type="varchar" MaxLength="50" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Raporlar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="raporAdi" Type="varchar" MaxLength="150" />
+          <Property Name="raporTarih" Type="date" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="kategori" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Servis">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="servisNumarasi" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="seriNumarasi" Type="varchar" MaxLength="100" />
+          <Property Name="model" Type="varchar" MaxLength="200" />
+          <Property Name="modelKodu" Type="varchar" MaxLength="200" />
+          <Property Name="musteriNo" Type="varchar" MaxLength="100" />
+          <Property Name="musteriAd" Type="varchar" MaxLength="50" />
+          <Property Name="musteriSoyad" Type="varchar" MaxLength="50" />
+          <Property Name="musteriAdres" Type="varchar" MaxLength="500" />
+          <Property Name="musteriIl" Type="varchar" MaxLength="50" />
+          <Property Name="musteriIlce" Type="varchar" MaxLength="50" />
+          <Property Name="serviseGelisTarih" Type="date" />
+          <Property Name="kargoTarihi" Type="date" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_Kullanici">
+          <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="1" />
+          <End Role="KullaniciRapor" Type="Self.KullaniciRapor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanici">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KullaniciRapor">
+              <PropertyRef Name="kullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Raporlar">
+          <End Role="Raporlar" Type="Self.Raporlar" Multiplicity="1" />
+          <End Role="KullaniciRapor" Type="Self.KullaniciRapor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Raporlar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KullaniciRapor">
+              <PropertyRef Name="RaporID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="spRaporSirala" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="RaporModelStoreContainer">
+          <EntitySet Name="Depo" EntityType="Self.Depo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DepoParca" EntityType="Self.DepoParca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kullanici" EntityType="Self.Kullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KullaniciRapor" EntityType="Self.KullaniciRapor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="musteriHizmetleri" EntityType="Self.musteriHizmetleri" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Raporlar" EntityType="Self.Raporlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servis" EntityType="Self.Servis" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_Kullanici" Association="Self.fk_Kullanici">
+            <End Role="Kullanici" EntitySet="Kullanici" />
+            <End Role="KullaniciRapor" EntitySet="KullaniciRapor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Raporlar" Association="Self.fk_Raporlar">
+            <End Role="Raporlar" EntitySet="Raporlar" />
+            <End Role="KullaniciRapor" EntitySet="KullaniciRapor" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RaporModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Depo">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="servisNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="seriNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tarih" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="model" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="modelKodu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="DepoParca">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="depoID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="parcaAd" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="parcaKod" Type="String" MaxLength="2044" FixedLength="false" Unicode="false" />
+          <Property Name="parcaDurum" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Kullanici">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dogumTarihi" Type="DateTime" Precision="0" />
+          <Property Name="ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="soyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="yetki" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kullaniciAdi" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="KullaniciRapor" Relationship="Self.fk_Kullanici" FromRole="Kullanici" ToRole="KullaniciRapor" />
+        </EntityType>
+        <EntityType Name="KullaniciRapor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kullaniciID" Type="Int32" Nullable="false" />
+          <Property Name="RaporID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kullanici" Relationship="Self.fk_Kullanici" FromRole="KullaniciRapor" ToRole="Kullanici" />
+          <NavigationProperty Name="Raporlar" Relationship="Self.fk_Raporlar" FromRole="KullaniciRapor" ToRole="Raporlar" />
+        </EntityType>
+        <EntityType Name="musteriHizmetleri">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="tarih" Type="DateTime" Precision="0" />
+          <Property Name="temsilci" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="musteriAd" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="musteriSoyad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="musteriTelefon" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="musteriEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="musteriSikayeti" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="musteriyeCevap" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="musteriyeUlasildi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cihazModel" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cihazSeriNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Raporlar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="raporAdi" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="raporTarih" Type="DateTime" Precision="0" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="kategori" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="KullaniciRapor" Relationship="Self.fk_Raporlar" FromRole="Raporlar" ToRole="KullaniciRapor" />
+        </EntityType>
+        <EntityType Name="Servis">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="servisNumarasi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="seriNumarasi" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="model" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="modelKodu" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="musteriNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="musteriAd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="musteriSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="musteriAdres" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="musteriIl" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="musteriIlce" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="serviseGelisTarih" Type="DateTime" Precision="0" />
+          <Property Name="kargoTarihi" Type="DateTime" Precision="0" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <Association Name="fk_Kullanici">
+          <End Role="Kullanici" Type="Self.Kullanici" Multiplicity="1" />
+          <End Role="KullaniciRapor" Type="Self.KullaniciRapor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanici">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KullaniciRapor">
+              <PropertyRef Name="kullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Raporlar">
+          <End Role="Raporlar" Type="Self.Raporlar" Multiplicity="1" />
+          <End Role="KullaniciRapor" Type="Self.KullaniciRapor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Raporlar">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="KullaniciRapor">
+              <PropertyRef Name="RaporID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RaporEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Depo" EntityType="Self.Depo" />
+          <EntitySet Name="DepoParca" EntityType="Self.DepoParca" />
+          <EntitySet Name="Kullanici" EntityType="Self.Kullanici" />
+          <EntitySet Name="KullaniciRapor" EntityType="Self.KullaniciRapor" />
+          <EntitySet Name="musteriHizmetleri" EntityType="Self.musteriHizmetleri" />
+          <EntitySet Name="Raporlar" EntityType="Self.Raporlar" />
+          <EntitySet Name="Servis" EntityType="Self.Servis" />
+          <AssociationSet Name="fk_Kullanici" Association="Self.fk_Kullanici">
+            <End Role="Kullanici" EntitySet="Kullanici" />
+            <End Role="KullaniciRapor" EntitySet="KullaniciRapor" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Raporlar" Association="Self.fk_Raporlar">
+            <End Role="Raporlar" EntitySet="Raporlar" />
+            <End Role="KullaniciRapor" EntitySet="KullaniciRapor" />
+          </AssociationSet>
+          <FunctionImport Name="spRaporSirala" ReturnType="Collection(RaporModel.spRaporSirala_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="spRaporSirala_Result">
+          <Property Type="Int32" Name="KullaniciID" Nullable="true" />
+          <Property Type="String" Name="kullaniciAdi" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="raporAdi" Nullable="true" MaxLength="150" />
+          <Property Type="Int32" Name="RaporID" Nullable="true" />
+          <Property Type="DateTime" Name="raporTarih" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RaporModelStoreContainer" CdmEntityContainer="RaporEntities2">
+          <EntitySetMapping Name="Depo">
+            <EntityTypeMapping TypeName="RaporModel.Depo">
+              <MappingFragment StoreEntitySet="Depo">
+                <ScalarProperty Name="servisNo" ColumnName="servisNo" />
+                <ScalarProperty Name="seriNo" ColumnName="seriNo" />
+                <ScalarProperty Name="tarih" ColumnName="tarih" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="modelKodu" ColumnName="modelKodu" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DepoParca">
+            <EntityTypeMapping TypeName="RaporModel.DepoParca">
+              <MappingFragment StoreEntitySet="DepoParca">
+                <ScalarProperty Name="depoID" ColumnName="depoID" />
+                <ScalarProperty Name="parcaAd" ColumnName="parcaAd" />
+                <ScalarProperty Name="parcaKod" ColumnName="parcaKod" />
+                <ScalarProperty Name="parcaDurum" ColumnName="parcaDurum" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kullanici">
+            <EntityTypeMapping TypeName="RaporModel.Kullanici">
+              <MappingFragment StoreEntitySet="Kullanici">
+                <ScalarProperty Name="sifre" ColumnName="sifre" />
+                <ScalarProperty Name="dogumTarihi" ColumnName="dogumTarihi" />
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="soyad" ColumnName="soyad" />
+                <ScalarProperty Name="yetki" ColumnName="yetki" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="kullaniciAdi" ColumnName="kullaniciAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KullaniciRapor">
+            <EntityTypeMapping TypeName="RaporModel.KullaniciRapor">
+              <MappingFragment StoreEntitySet="KullaniciRapor">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="kullaniciID" ColumnName="kullaniciID" />
+                <ScalarProperty Name="RaporID" ColumnName="RaporID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="musteriHizmetleri">
+            <EntityTypeMapping TypeName="RaporModel.musteriHizmetleri">
+              <MappingFragment StoreEntitySet="musteriHizmetleri">
+                <ScalarProperty Name="tarih" ColumnName="tarih" />
+                <ScalarProperty Name="temsilci" ColumnName="temsilci" />
+                <ScalarProperty Name="musteriAd" ColumnName="musteriAd" />
+                <ScalarProperty Name="musteriSoyad" ColumnName="musteriSoyad" />
+                <ScalarProperty Name="musteriTelefon" ColumnName="musteriTelefon" />
+                <ScalarProperty Name="musteriEmail" ColumnName="musteriEmail" />
+                <ScalarProperty Name="musteriSikayeti" ColumnName="musteriSikayeti" />
+                <ScalarProperty Name="musteriyeCevap" ColumnName="musteriyeCevap" />
+                <ScalarProperty Name="musteriyeUlasildi" ColumnName="musteriyeUlasildi" />
+                <ScalarProperty Name="cihazModel" ColumnName="cihazModel" />
+                <ScalarProperty Name="cihazSeriNo" ColumnName="cihazSeriNo" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Raporlar">
+            <EntityTypeMapping TypeName="RaporModel.Raporlar">
+              <MappingFragment StoreEntitySet="Raporlar">
+                <ScalarProperty Name="raporAdi" ColumnName="raporAdi" />
+                <ScalarProperty Name="raporTarih" ColumnName="raporTarih" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="kategori" ColumnName="kategori" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servis">
+            <EntityTypeMapping TypeName="RaporModel.Servis">
+              <MappingFragment StoreEntitySet="Servis">
+                <ScalarProperty Name="servisNumarasi" ColumnName="servisNumarasi" />
+                <ScalarProperty Name="seriNumarasi" ColumnName="seriNumarasi" />
+                <ScalarProperty Name="model" ColumnName="model" />
+                <ScalarProperty Name="modelKodu" ColumnName="modelKodu" />
+                <ScalarProperty Name="musteriNo" ColumnName="musteriNo" />
+                <ScalarProperty Name="musteriAd" ColumnName="musteriAd" />
+                <ScalarProperty Name="musteriSoyad" ColumnName="musteriSoyad" />
+                <ScalarProperty Name="musteriAdres" ColumnName="musteriAdres" />
+                <ScalarProperty Name="musteriIl" ColumnName="musteriIl" />
+                <ScalarProperty Name="musteriIlce" ColumnName="musteriIlce" />
+                <ScalarProperty Name="serviseGelisTarih" ColumnName="serviseGelisTarih" />
+                <ScalarProperty Name="kargoTarihi" ColumnName="kargoTarihi" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spRaporSirala" FunctionName="RaporModel.Store.spRaporSirala">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RaporModel.spRaporSirala_Result">
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="kullaniciAdi" ColumnName="kullaniciAdi" />
+                <ScalarProperty Name="raporAdi" ColumnName="raporAdi" />
+                <ScalarProperty Name="RaporID" ColumnName="RaporID" />
+                <ScalarProperty Name="raporTarih" ColumnName="raporTarih" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
