@@ -1,5 +1,7 @@
 # reeder-project
- The project I made while interning at reeder  / reeder'da staj yaparken yaptığım rapor görüntüleme işlemi yapılan web sitesi uygulaması
+I developed this project during my internship at reeder company.
+
+I developed this project with .net framework. In this project I developed, I ensured that the reports sent between the units within the institution are transmitted securely between the units and viewed by the units.
  
  
  ![](https://github.com/necdetcan/reeder-project/blob/main/screenshots/1.png?raw=true)
